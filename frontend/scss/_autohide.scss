@@ -1,0 +1,30 @@
+/**
+ * Auto Hide Elements
+ */
+
+.hide-after-5 {
+  -moz-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -o-animation: hideAnimation 0.5s ease-in 5s forwards;
+  animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.hide-after-10 {
+  -moz-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -o-animation: hideAnimation 0.5s ease-in 5s forwards;
+  animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.hide-after-15 {
+  -moz-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation: hideAnimation 0.5s ease-in 5s forwards;
+  -o-animation: hideAnimation 0.5s ease-in 5s forwards;
+  animation: hideAnimation 0.5s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}

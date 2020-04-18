@@ -1,0 +1,84 @@
+extends layout
+block content
+
+  h1 Relays
+
+  .container
+    .flexContainer.two
+      each relay in relays
+        - let colorActive = ''
+        - if (relay.deletedAt) {
+          - colorActive = 'background-color: indianred;'
+        - } else
+        - if (!relay.enabled) {
+          - colorActive = 'background-color: darkgray;'
+        - } else if (activeRelays[relay.idRelay]) {
+          - colorActive = 'background-color: darkseagreen;'
+        - }
+        form.flexColumn(style=`padding: .5rem;${colorActive}`, method="POST", action=`/relay/${relay.idRelay}`)
+          ul(style=`margin-bottom: 1rem;`)
+            li idRelay:
+              input(name='idRelay', placeholder='idRelay', required=true, value=relay.idRelay, disabled=true)
+            li Note:
+              input(name='note', placeholder='note', required=true, value=relay.note)
+            li idStreamKey:
+              input(name='idStreamKey', placeholder='idStreamKey', required=true, value=relay.idStreamKey)
+            if (relay.StreamKey)
+              li StreamKey:
+                input(value=relay.StreamKey.key, disabled=true)
+              li StreamNote:
+                input(value=relay.StreamKey.note, disabled=true)
+            else
+              li
+                | The attached is currently archived or deleted
+            li URL:
+              input(name='url', placeholder='url', required=true, value=relay.url)
+            li Key:
+              input(name='key', placeholder='key', value=relay.key)
+            li
+              ul.flexContainer(style="justify-content: space-between;")
+                li Status:
+                  = ' '
+                  if (relay.enabled)
+                    | enabled
+                  else
+                    | disabled
+                li Last Active:
+                  = ' '
+                  if (relay.lastActiveAt)
+                    = moment(relay.lastActiveAt).fromNow()
+                    = ' ('
+                    = moment(relay.lastActiveAt).format()
+                    = ')'
+                  else
+                    | never
+            li
+              ul.flexContainer(style="justify-content: space-around;")
+                li
+                  button.button() Update
+                li
+                  if (relay.enabled)
+                    a.button(href=`/relay/${relay.idRelay}/disable`) Disable
+                  else
+                    a.button(href=`/relay/${relay.idRelay}/enable`) Enable
+                if (relay.deletedAt)
+                  li
+                    a.button(href=`/relay/${relay.idRelay}/delete?force=1`) Delete
+                  li
+                    a.button(href=`/relay/${relay.idRelay}/restore`) Restore
+                else
+                  li
+                    a.button(href=`/relay/${relay.idRelay}/delete`) Archive
+
+    h2 Add new Relay
+    form(method="POST", action=`/relay/create`)
+      ul
+        li Note:
+          input(name='note', placeholder='note', required=true)
+        li idStreamKey:
+          input(name='idStreamKey', placeholder='idStreamKey', required=false)
+        li Url:
+          input(name='url', placeholder='url', required=true)
+        li Key:
+          input(name='key', placeholder='key')
+      button.button() Create Relay

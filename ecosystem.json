@@ -1,0 +1,81 @@
+{
+  /**
+   * Application configuration section
+   * http://pm2.keymetrics.io/docs/usage/application-declaration/
+   */
+  apps : [
+    {
+      name: "mirroring",
+      append_env_to_name: true,
+      script: "./server/index.js",
+      watch: false,
+      exec_mode: "fork",
+      // instances: (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') ? 'max' : 1,
+      instances: 1,
+      log_date_format: "YYYY-MM-DD HH:mm Z",
+      env: {
+        NODE_ENV: 'local',
+        DEBUG: 'sinpc:*',
+      },
+      env_production : {
+        NODE_ENV: "production",
+        DEBUG: 'sinpc:*',
+      },
+      env_development: {
+        NODE_ENV: "development",
+        DEBUG: 'sinpc:*',
+      },
+    },
+    {
+      name: "braveWall",
+      append_env_to_name: true,
+      script: "./brave/brave.py",
+      args: ["-c", './brave/config/wall.yaml'],
+      wait_ready: true,
+      autorestart: false,
+      watch: false,
+      exec_mode: "fork",
+      // instances: (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') ? 'max' : 1,
+      instances: 1,
+      log_date_format: "YYYY-MM-DD HH:mm Z",
+      env: {
+        NODE_ENV: 'local',
+        DEBUG: 'sinpc:*',
+      },
+      env_production : {
+        NODE_ENV: "production",
+        DEBUG: 'sinpc:*',
+      },
+      env_development: {
+        NODE_ENV: "development",
+        DEBUG: 'sinpc:*',
+      },
+    },
+  ],
+
+  /**
+   * Deployment section
+   * http://pm2.keymetrics.io/docs/usage/deployment/
+   */
+  deploy : {
+    production : {
+      user: "deploy",
+      host: "swStream5",
+      ref: "origin/master",
+      repo: "git@github.com:chrisspiegl/NetworkPersonalConnections.git",
+      path: "/home/deploy/mirroring",
+      "post-deploy": "NODE_ENV=production pm2 reload ecosystem.json --only mirroring --env production",
+      env: {},
+    },
+    // dev : {
+    //   user: "node",
+    //   host: "doSpieglCO-node",
+    //   // ref: "origin/development",
+    //   ref: "origin/master",
+    //   repo: "git@github.com:chrisspiegl/NetworkPersonalConnections.git",
+    //   path: "/home/node/network.chrisspiegl.com/development",
+    //   "post-deploy": "npm run nsinstall && npm run nsupdate && NODE_ENV=development pm2 reload ecosystem.json --env development --source-map-support",
+    //   env: {}
+    // }
+  }
+}

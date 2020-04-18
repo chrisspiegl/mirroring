@@ -1,0 +1,50 @@
+extends layout
+block content
+
+  h1 Dashboard
+
+  .container
+    .container16x9box(style="border: 3px solid indianred;")
+      .inner.centerCenterParent
+        img.centerCenterChild#streamWallImage(src="/gstreamer/waxll.jpg", style="width: 100%; z-index: 100")
+
+  div
+    if (Object.keys(stats).length == 0 || !stats)
+      p.center No active streams.
+    else
+      table
+        tr
+          td App
+          td Stream Key
+          td ID
+          td IP
+          td Audio Codec
+          td Audio Profile
+          td Audio Sample Rate
+          td Audio Chan
+          td Video Codec
+          td Video Size
+          td Video FPS
+          td Video Width
+          td Video Height
+          td Time
+          td Clients
+        each stat in stats.live
+          tr
+            td=stat.publisher.app
+            td=stat.publisher.stream
+            td=stat.publisher.clientId
+            td=stat.publisher.ip
+            td=(stat.publisher.audio) ? stat.publisher.audio.codec : ''
+            td=(stat.publisher.audio) ? stat.publisher.audio.profile : ''
+            td=(stat.publisher.audio) ? stat.publisher.audio.samplerate : ''
+            td=(stat.publisher.audio) ? stat.publisher.audio.channels : ''
+            td=(stat.publisher.video) ? stat.publisher.video.codec : ''
+            td=(stat.publisher.video) ? stat.publisher.video.level : ''
+            td=(stat.publisher.video) ? stat.publisher.video.fps : ''
+            td=(stat.publisher.video) ? stat.publisher.video.width : ''
+            td=(stat.publisher.video) ? stat.publisher.video.height : ''
+            td=moment(stat.publisher.connectCreated).fromNow()
+            td=stat.subscribers.length
+
+

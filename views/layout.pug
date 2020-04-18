@@ -1,0 +1,107 @@
+doctype
+head
+  meta(http-equiv="Content-Type" content="text/html" charset="UTF-8")
+  meta(http-equiv="Content-Language" content="en-us")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+
+  //- meta(name="csrf-param" content="authenticity_token")
+  //- meta(name="csrf-token" content=(typeof req.csrfToken === 'function') ? req.csrfToken() : '')
+
+  meta(name="HandheldFriendly" content="True")
+  meta(http-equiv="cleartype" content="on")
+  meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+  //- meta(name="google" value="notranslate")
+
+  meta(http-equiv="cleartype" content="on")
+  meta(name="apple-mobile-web-app-capable" content="yes")
+
+  meta(name="version" content=config.version)
+
+  link(rel="icon" type="image/png" href="/assets/images/favicon-32x32.png" sizes="32x32")
+  link(rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16")
+
+  title Stream Mirroring
+  link(rel="image_src" href="https://NetworkPersonalConnections.ChrisSpiegl.com/assets/images/social-media.png")
+  meta(name="description" content="Get updates when there is a firmware update for your device! Easily tracked and delivered.")
+
+  meta(name="apple-mobile-web-app-title" content="Stream Mirroring")
+  meta(name="apple-mobile-web-app-capable" content="yes")
+  meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+
+  meta(property="fb:app_id" content="137058680277971")
+
+  meta(property="og:title" content="Stream Mirroring")
+  meta(property="og:site_name" content="Stream Mirroring")
+  meta(property="og:description" content="Get updates when there is a firmware update for your device! Easily tracked and delivered.")
+  meta(property="og:image" content="https://NetworkPersonalConnections.ChrisSpiegl.com/assets/images/social-media.png")
+  meta(property="og:image:width" content="2048")
+  meta(property="og:image:height" content="1024")
+  meta(property="og:url" content="https://network.ChrisSpiegl.com")
+  meta(property="og:type" content="website")
+
+  meta(name="twitter:card" content="summary_large_image")
+  meta(name="twitter:site" content="@ChrisSpiegl")
+  meta(name="twitter:creator" content="@ChrisSpiegl")
+  meta(name="twitter:title" content="Stream Mirroring")
+  meta(name="twitter:description" content="Get updates when there is a firmware update for your device! Easily tracked and delivered.")
+  meta(name="twitter:image" content="https://NetworkPersonalConnections.ChrisSpiegl.com/assets/images/social-media.png")
+  meta(name="twitter:image:alt" content=".")
+  meta(name="twitter:url" content="https://network.ChrisSpiegl.com")
+
+  meta(http-equiv="last-modified" content="")
+  meta(name="last-modified" content="")
+
+  link(rel="stylesheet", href="/assets/style.css")
+
+body(
+  class=bodyClasses
+  class=config.env
+)
+
+  header.mainHeader
+    h1
+      a.logo(href="/") Stream Mirroring
+      = ' '
+      em v
+        = config.version
+
+  nav.container
+    ul(style="display: flex; justify-content: space-around")
+      li
+        a.button(href="/dashboard") Dashboard
+      li
+        a.button(href="/streamKeys") Stream Keys
+      li
+        a.button(href="/relays") Relays
+
+  .container.flash
+    if (messages.success)
+      .message.success.hide-after-10(style="height: auto;")!= messages.success
+    if (messages.info)
+      .message.info.hide-after-10(style="height: auto;")!= messages.info
+    if (messages.warn)
+      .message.warn.hide-after-10!= messages.warn
+    if (messages.error)
+      .message.error.hide-after-15!= messages.error
+
+  block content
+
+  footer
+    p.center &copy; #{moment().year()} Chris Spiegl | #[a(href="https://chrisspiegl.com/legal-disclosure/") Imprint]
+
+  //- a.madeBy(href="https://ChrisSpiegl.com?utm_source=footer&utm_medium=npc&utm_campaign=MadeBy" target="_blank")
+    span Made by Chris Spiegl
+
+  script(src="/assets/script.js")
+
+  != footerScripts
+
+  //- if config.env === 'production'
+    //- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent
+    //- script(type="text/javascript").
+    //-  window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+    //- script(type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js")
+
+  //- Include footer JavaScript form pages
+  block footerJs

@@ -1,0 +1,71 @@
+extends layout
+block content
+
+  h1 Stream Keys
+
+  .container
+    .flexContainer.two
+      each streamKey in streamKeys
+        - let colorActive = ''
+        - if (streamKey.deletedAt) {
+          - colorActive = 'background-color: indianred;'
+        - } else if (!streamKey.enabled) {
+          - colorActive = 'background-color: darkgray;'
+        - } else if (activeStreams[streamKey.key]) {
+          - colorActive = 'background-color: darkseagreen;'
+        - }
+        form.flexColumn(style=`padding: .5rem;${colorActive}`, method="POST", action=`/streamkey/${streamKey.idStreamKey}`)
+          ul(style=`margin-bottom: 1rem;`)
+            li idStreamKey:
+              = ' '
+              input(name='idStreamKey', placeholder='idStreamKey', required=true, value=streamKey.idStreamKey, disabled=true)
+            li Note:
+              = ' '
+              input(name='note', placeholder='note', required=true, value=streamKey.note)
+            li Key:
+              = ' '
+              input(name='key', placeholder='key', required=true, value=streamKey.key, disabled=true)
+            li
+              ul.flexContainer(style="justify-content: space-between;")
+                li Status:
+                  = ' '
+                  if (streamKey.enabled)
+                    | enabled
+                  else
+                    | disabled
+                li Last Active:
+                  = ' '
+                  if (streamKey.lastActiveAt)
+                    = moment(streamKey.lastActiveAt).fromNow()
+                    = ' ('
+                    = moment(streamKey.lastActiveAt).format()
+                    = ')'
+                  else
+                    | never
+            li
+              ul.flexContainer(style="justify-content: space-around;")
+                li
+                  button.button() Update
+                li
+                  a.button(href=`/streamkey/${streamKey.idStreamKey}/regenerate`) Regenerate
+                li
+                  if (streamKey.enabled)
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/disable`) Disable
+                  else
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/enable`) Enable
+                if (streamKey.deletedAt)
+                  li
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/delete?force=1`) Delete
+                  li
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/restore`) Restore
+                else
+                  li
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/delete`) Archive
+
+    h2 Add new Stream Key
+    form(method="POST", action=`/streamkey/create`)
+      ul
+        li Note:
+          input(name='note', placeholder='note', required=true)
+        li Stream Key: will be generated upon creation.
+      button.button() Create Stream Key
