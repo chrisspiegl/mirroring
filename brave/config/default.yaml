@@ -1,0 +1,139 @@
+enable_video: true
+enable_audio: true
+
+inputs:
+  - id: 1 # IMAGE OVERLAY BACKGROUND
+    name: image-background
+    type: image
+    uri: file:///Users/spieglio/Documents/obs-graphics/niyama.academy/tv-chanel/background-video@720p.png
+    width: 1280
+    height: 1080
+    state: PLAYING
+
+  - id: 2 # IMAGE OVERLA LOGO
+    name: image-logo
+    type: image
+    uri: file:///Users/spieglio/Documents/obs-graphics/niyama.academy/tv-chanel/overlay-logo@0.25x.png
+    width: 125
+    height: 105
+    state: PLAYING
+
+  - id: 3 # IMAGE OVERLAY REPLAY
+    name: image-replay
+    type: image
+    uri: file:///Users/spieglio/Documents/obs-graphics/niyama.academy/tv-chanel/overlay-replay@0.5x.png
+    width: 250
+    height: 250
+    state: PLAYING
+
+  - id: 500 # NIYAMA PLAYLIST STREAM
+    name: rtmpsrc-playlist
+    type: uri
+    uri: rtmp://stream.spiegl.co/live/lTgpsAp0x
+    # uri: rtmp://127.0.0.1/live/7rGM3mrOU
+    buffer_duration: 1000
+    loop: True
+    volume: 1
+    width: 1280
+    height: 720
+    state: PLAYING
+
+  - id: 501
+    name: rtmpsrc-live
+    type: uri
+    uri: rtmp://stream.spiegl.co/live/Fpe6J5Bzl
+    buffer_duration: 1000
+    loop: True
+    volume: 1
+    width: 320
+    height: 180
+    # width: 1280
+    # height: 720
+    state: READY
+
+outputs:
+  - type: rtmp
+    name: outputRtmp
+    # uri: rtmp://127.0.0.1/live/Cee4qz4wF
+    uri: rtmp://stream.spiegl.co/live/sYyMhR4zu
+    width: 1280
+    height: 720
+
+  # - type: tcp
+  #   name: outputTcp
+  #   source: mixer100
+  #   host: 127.0.0.1
+  #   port: 7005
+  #   width: 1280
+  #   height: 720
+
+mixers:
+  - id: 100
+    width: 1280
+    height: 720
+    pattern: black # Background for the Main Mixer
+    background: transparent
+    sources:
+    - uid: input1 # background image
+      name: background-image
+      zorder: 10
+      # alpha: 1
+      width: 1280
+      height: 720
+    - uid: input500 # rtmp stream - PLAYLIST
+      name: rtmp-playlist
+      zorder: 500
+      # alpha: 1
+      width: 1280
+      height: 720
+    - uid: input501 # rtmp stream - LIVE
+      name: rtmp-live
+      zorder: 500
+      # alpha: 1
+      width: 1280
+      height: 720
+    - uid: input2 # logo top left
+      name: image-logo-top-left
+      zorder: 900
+      # alpha: 1
+      width: 125
+      height: 105
+    - uid: input3 # replay bottom left
+      name: image-replay-bottom-left
+      zorder: 900
+      # alpha: 1
+      ypos: 470
+      width: 250
+      height: 250
+
+
+overlays:
+    - id: 1 # TEXT TOP RIGHT
+      type: text
+      text: 'I am some text'
+      visible: true
+      fontDesc: "Raleway 14"
+      lineAlignment: right
+      valignment: top
+      halignment: right
+      xpad: 15
+      ypad: 0
+      source: mixer100
+    - id: 2 # TEXT CENTER
+      type: text
+      text: 'THE CENTER OF THE UNIVERSE'
+      visible: false
+      fontDesc: "Raleway 14"
+      lineAlignment: center
+      valignment: center
+      halignment: center
+      source: mixer100
+    - id: 3 # CLOCK BOTTOM RIGHT
+      type: clock
+      visible: true
+      fontDesc: "Raleway Mono 14"
+      valignment: bottom
+      halignment: right
+      xpad: 15
+      ypad: 5
+      source: mixer100

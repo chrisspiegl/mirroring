@@ -1,0 +1,73 @@
+#  ##
+## Video, audio, or both? Default is both
+##
+enable_video: true
+enable_audio: true
+
+##
+## Default width and height (If ommitted, it will be 640,360)
+##
+default_mixer_width: 640
+default_mixer_height: 360
+
+##
+## DEFAULT INPUTS
+## Here you can define inputs that should exist at startup.
+## Types available: 'uri', 'image', 'test_video', 'test_audio'
+##
+inputs:
+    # - type: uri
+    #   uri: file:///path/to/file.mp4
+    # - type: image
+    #   uri: https://upload.wikimedia.org/wikipedia/commons/e/eb/BBC.svg
+    # - type: test_audio
+    #   freq: 200
+    # - type: test_video
+    #   pattern: 18
+
+##
+## DEFAULT OUTPUTS
+## Here you can define inputs that should exist at startup.
+## Types available: 'rtmp', 'tcp, 'image', 'file', 'local'
+##
+outputs:
+    # - type: local
+    # - type: file
+    #   location: /path/to/file.mp4
+    # - type: image
+    # - type: tcp
+    # - type: rtmp
+    #   uri: rtmp://domain/path/name
+
+##
+## DEFAULT OVERLAYS
+## Types available: 'text', 'clock', 'effect'
+##
+overlays:
+    # - type: text
+    #   text: 'I am some text'
+    #   visible: true
+    # - type: clock
+    #   valignment: 'top'
+    #   visible: true
+    # - type: effect
+    #   effect_name: 'warptv'
+    #       visible: true
+
+##
+## DEFAULT MIXERS
+## No 'type' field requided for mixers.
+## 'props' can have 'width' and 'height' and 'pattern' (all integers)
+##
+mixers:
+    # Default to one mixer, with no specific props:
+    - {}
+    # Add inputs to the mixer on start-up like this:
+    # - sources:
+    #     - uid: input1
+    #       zorder: 2
+    #       width: 160
+    #       height: 90
+    #     - uid: input2
+    #       zorder: 1
+    #       volume: 0
