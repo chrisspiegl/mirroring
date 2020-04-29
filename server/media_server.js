@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const path = require('path')
-const config = require(path.join(__dirname, '../config'))
+const config = require('config')
 
 const debug = require('debug')
 const log = debug(`${config.slug}:mediaServer`)
@@ -9,8 +9,8 @@ const error = debug(`${config.slug}:mediaServer:error`)
 
 const NodeMediaServer = require('node-media-server')
 
-const streamReader = require('./streamReader')
-const models = require('../database/models')
+const streamReader = require('server/streamReader')
+const models = require('database/models')
 
 function MyError(name, message=''){
   this.name = name

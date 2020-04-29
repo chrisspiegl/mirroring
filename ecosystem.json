@@ -14,14 +14,17 @@
       instances: 1,
       log_date_format: "YYYY-MM-DD HH:mm Z",
       env: {
+        NODE_PATH: '.',
         NODE_ENV: 'local',
         DEBUG: 'sinpc:*',
       },
       env_production : {
+        NODE_PATH: '.',
         NODE_ENV: "production",
         DEBUG: 'sinpc:*',
       },
       env_development: {
+        NODE_PATH: '.',
         NODE_ENV: "development",
         DEBUG: 'sinpc:*',
       },

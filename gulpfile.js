@@ -178,6 +178,7 @@ gulp.task('startWebserver', function (cb) {
     watch: ['server'],
     env: {
       LOCALTUNNEL: 0,
+      NODE_PATH: '.',
       NODE_ENV: config.env,
       DEBUG: `${config.slug}:*`
     }

@@ -6,7 +6,7 @@ module.exports = {
   name: 'Stream Mirroring',
   slug: 'simir',
   slugShort: 'mir',
-  version: require(path.normalize(__dirname + '/../package.json')).version,
+  version: require('package.json').version,
 
   root: path.normalize(__dirname + '/..'),
 

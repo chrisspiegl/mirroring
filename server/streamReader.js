@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const path = require('path')
-const config = require(path.join(__dirname, '../config'))
+const config = require('config')
 
 const debug = require('debug')
 const log = debug(`${config.slug}:streamReader`)
@@ -21,7 +21,7 @@ const shortid = require('shortid');
 const _ = require('lodash')
 const { Op } = require('sequelize')
 
-const models = require('../database/models')
+const models = require('database/models')
 
 function MyError(name, message=''){
   this.name = name
@@ -375,7 +375,7 @@ const attatchStreamTranscoders = async (streamKey, idStreamKey) => {
 }
 
 
-const StreamTranscoder = require('./streamTranscoder')
+const StreamTranscoder = require('server/streamTranscoder')
 let transcoderSessions = new Map()
 
 const transcoder720pStart = (url, app, name, idTranscoder) => {

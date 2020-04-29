@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const path = require('path')
-const config = require(path.join(__dirname, '../config'))
+const config = require('config')
 
 const debug = require('debug')
 const log = debug(`${config.slug}:server`)
@@ -29,12 +29,12 @@ const slashes = require('connect-slashes')
 
 moment.tz.setDefault('UTC')
 
-const models = require('../database/models')
-const middleware = require('./middleware')
+const models = require('database/models')
+const middleware = require('server/middleware')
+// const routes = require('server/routes')
 const pnotice = require('pushnotice')(`${config.slug}:server`, { env: config.env, chat: config.pushnotice.chat, debug: true, disabled: config.pushnotice.disabled })
-
-const redis = require('./redis')
-const mediaServer = require('./media_server');
+const redis = require('server/redis')
+const mediaServer = require('server/media_server');
 
 // Application
 const app = express()
@@ -45,8 +45,8 @@ app.use(logger('tiny')) // Less extreme logging of requests
 // app.use(middleware.analytics) // Disable analytics cause it's a internal tool
 app.use(expressStatusMonitor())
 app.enable('trust proxy') // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-// app.use(require('./limiter').limiterReject); // Apply rate limiting to all routes
-// app.use(require('./limiter').limiterSlowDown); // Apply limter to slow down to all routes
+// app.use(require('server/limiter').limiterReject); // Apply rate limiting to all routes
+// app.use(require('server/limiter').limiterSlowDown); // Apply limter to slow down to all routes
 app.set('views', path.join(config.root, 'views'))
 app.set('view engine', 'pug')
 app.set('view cache', (config.envShort === 'pro'))
@@ -76,7 +76,7 @@ app.use(session({
 
 app.use(flash())
 app.use(middleware.extension)
-app.use(require('./locals'))
+app.use(require('server/locals'))
 app.use((err, req, res, next) => {
   // Error in the Express App
   error(err.message)
@@ -113,21 +113,23 @@ app.use(middleware.catchErrors(async (req, res, next) => {
   return next()
 }))
 
-// app.use('/api/v1', require('./router/routerApi').apiV1());
-// app.use('/api', require('./router/routerApi').api());
+// app.use('/api/v1', require('server/routes/routerApi').apiV1());
+// app.use('/api', require('server/routes/routerApi').api());
 
 app.use(slashes(false)) // has to be used after `/api` routes and `express.static` so it does not change those urls
 // app.use(csurf({ cookie: false }))
 
-// app.use('/auth', require('./router/auth/index')())
-// app.use('/contacts?', require('./router/contact/index')())
-app.use('/streamkeys?', require('./router/streamKey')())
-app.use('/relays?', require('./router/relay')())
-app.use('/dashboard', require('./router/dashboard')())
-app.use('/home', require('./router/home')())
-app.use('/', require('./router/home')())
-app.use(require('./router/routerError').error404)
-app.use(require('./router/routerError').error500)
+// app.use(routes)
+
+// app.use('/auth', require('server/routes/auth/index')())
+// app.use('/contacts?', require('server/routes/contact/index')())
+app.use('/streamkeys?', require('server/routes/streamKey')())
+app.use('/relays?', require('server/routes/relay')())
+app.use('/dashboard', require('server/routes/dashboard')())
+app.use('/home', require('server/routes/home')())
+app.use('/', require('server/routes/home')())
+app.use(require('server/routes/routerError').error404)
+app.use(require('server/routes/routerError').error500)
 
 const server = app.listen(config.server.port, config.server.address, async () => {
   await models.init()

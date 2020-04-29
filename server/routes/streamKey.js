@@ -1,6 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const path = require('path')
-const config = require(path.join(__dirname, '../../config'))
+const config = require('config')
 
 const debug = require('debug')
 const log = debug(`${config.slug}:router:streamKey`)
@@ -10,10 +10,10 @@ const error = debug(`${config.slug}:router:streamKey:error`)
 const express = require('express')
 const shortid = require('shortid');
 
-const middleware = require('../middleware')
-const streamReader = require('../streamReader')
+const middleware = require('server/middleware')
+const streamReader = require('server/streamReader')
 
-const models = require('../../database/models')
+const models = require('database/models')
 
 const generateNewStreamKey = async () => {
   let i = 0
