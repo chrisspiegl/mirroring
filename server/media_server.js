@@ -1,5 +1,4 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-const path = require('path')
 const config = require('config')
 
 const debug = require('debug')
