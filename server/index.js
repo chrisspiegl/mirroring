@@ -13,7 +13,6 @@ pmx.init({ http: true })
 
 const bodyParser = require('body-parser')
 const compression = require('compression')
-// const csurf = require('csurf')
 const express = require('express')
 const expressStatusMonitor = require('express-status-monitor')
 const flash = require('express-flash')
@@ -24,7 +23,6 @@ const moment = require('moment-timezone')
 const pug = require('pug')
 const session = require('express-session')
 const SessionRedisStore = require('connect-redis')(session)
-const slashes = require('connect-slashes')
 
 moment.tz.setDefault('UTC')
 
@@ -112,23 +110,7 @@ app.use(middleware.catchErrors(async (req, res, next) => {
   return next()
 }))
 
-// app.use('/api/v1', require('server/routes/routerApi').apiV1());
-// app.use('/api', require('server/routes/routerApi').api());
-
-app.use(slashes(false)) // has to be used after `/api` routes and `express.static` so it does not change those urls
-// app.use(csurf({ cookie: false }))
-
-// app.use(routes)
-
-// app.use('/auth', require('server/routes/auth/index')())
-// app.use('/contacts?', require('server/routes/contact/index')())
-app.use('/streamkeys?', require('server/routes/streamKey')())
-app.use('/relays?', require('server/routes/relay')())
-app.use('/dashboard', require('server/routes/dashboard')())
-app.use('/home', require('server/routes/home')())
-app.use('/', require('server/routes/home')())
-app.use(require('server/routes/routerError').error404)
-app.use(require('server/routes/routerError').error500)
+app.use(require('server/routes'))
 
 const server = app.listen(config.server.port, config.server.address, async () => {
   await models.init()
