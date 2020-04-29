@@ -1,0 +1,11 @@
+extends layout
+block content
+
+  h1 Update VLC Text Elements
+  .container
+    form(method="POST", action=`/vlctextedit/`)
+      label Top Right:
+        input#textTopRight(type="text", name="vlcTextTopRight", value=vlc.topRight)
+      label Center Center:
+        input#textCenter(type="text", name="vlcTextCenterCenter", value=vlc.centerCenter)
+      button.button(type='submit') Update Text
