@@ -35,7 +35,6 @@ const pnotice = require('pushnotice')(`${config.slug}:server`, { env: config.env
 
 const redis = require('./redis')
 const mediaServer = require('./media_server');
-const GstreamerController = require('./gstreamerController');
 
 // Application
 const app = express()
@@ -143,10 +142,6 @@ const server = app.listen(config.server.port, config.server.address, async () =>
   log('App listening at ' + config.server.protocol + '://' + config.server.hostname + (config.server.portPublic === '' ? '' : ':' + config.server.portPublic))
   log(`Internal Adress: ${host}:${port}`)
   pnotice('App listening at ' + config.server.protocol + '://' + config.server.hostname + (config.server.portPublic === '' ? '' : ':' + config.server.portPublic))
-
-  // GSTREAMER TESTING
-  // let sessionGstreamerController = new GstreamerController({})
-  // sessionGstreamerController.run()
 })
 
 // Graceful shutdown

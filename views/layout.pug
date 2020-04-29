@@ -76,6 +76,7 @@ body(
         a.button(href="/relays") Relays
 
   .container.flash
+    #topMessage.message(role="alert", style="z-index: 1000")
     if (messages.success)
       .message.success.hide-after-10(style="height: auto;")!= messages.success
     if (messages.info)

@@ -26,31 +26,6 @@
         DEBUG: 'sinpc:*',
       },
     },
-    {
-      name: "braveWall",
-      append_env_to_name: true,
-      script: "./brave/brave.py",
-      args: ["-c", './brave/config/wall.yaml'],
-      wait_ready: true,
-      autorestart: false,
-      watch: false,
-      exec_mode: "fork",
-      // instances: (process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') ? 'max' : 1,
-      instances: 1,
-      log_date_format: "YYYY-MM-DD HH:mm Z",
-      env: {
-        NODE_ENV: 'local',
-        DEBUG: 'sinpc:*',
-      },
-      env_production : {
-        NODE_ENV: "production",
-        DEBUG: 'sinpc:*',
-      },
-      env_development: {
-        NODE_ENV: "development",
-        DEBUG: 'sinpc:*',
-      },
-    },
   ],
 
   /**

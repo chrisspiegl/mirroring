@@ -7,7 +7,6 @@ const browserSync = require('browser-sync').create()
 const changed = require('gulp-changed')
 const clean = require('gulp-clean')
 const composer = require('gulp-uglify/composer')
-const exec = require('gulp-exec')
 const concat = require('gulp-concat')
 const gif = require('gulp-if')
 const gulp = require('gulp')
@@ -30,10 +29,6 @@ const paths = {
     },
     'public/assets/fonts': {
       cwd: './frontend/fonts',
-      src: '**/*'
-    },
-    'public/gstreamer': {
-      cwd: './frontend/gstreamer',
       src: '**/*'
     },
     'public': {
@@ -199,24 +194,6 @@ gulp.task('startWebserver', function (cb) {
       console.error('nodemon webserver => app crasehd\n')
       // stream.emit('restart', 10)  // restart the server in 10 seconds
     })
-})
-
-
-gulp.task('braveWall', function (cb) {
-   var options = {
-    continueOnError: false, // default = false, true means don't emit error event
-    pipeStdout: false, // default = false, true means stdout is written to file.contents
-    // customTemplatingThing: "test" // content passed to lodash.template()
-  };
-  var reportOptions = {
-    err: true, // default = true, false means don't write err
-    stderr: true, // default = true, false means don't write stderr
-    stdout: true // default = true, false means don't write stdout
-  };
-  return gulp.src('./**/**')
-    .pipe(exec('python ./brave/brave.py -c ./brave/config/wall.yaml', options))
-    .pipe(exec.reporter(reportOptions));
-
 })
 
 gulp.task('default', gulp.parallel('startWebserver', 'watch'))
