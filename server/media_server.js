@@ -70,7 +70,7 @@ nms.on('prePublish', async (id, StreamPath, args) => {
     await streamReader.updateStreamKeyLastActiveAt(streamKeyDb.key)
     // await streamAnalysis(streamKeyDb.key)
 
-    await streamReader.attatchStreamTranscoders(streamKeyDb.key, streamKeyDb.idStreamKey)
+    // await streamReader.attatchStreamTranscoders(streamKeyDb.key, streamKeyDb.idStreamKey)
 
   } catch(e) {
     console.log(e)
