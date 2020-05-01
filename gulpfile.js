@@ -1,4 +1,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'local'
+process.env.NODE_PATH = '.'
+require("module").Module._initPaths(); // this is needed to update NODE_PATH at runtime of Gulp
 const path = require('path')
 const config = require(path.join(__dirname, './config'))
 
