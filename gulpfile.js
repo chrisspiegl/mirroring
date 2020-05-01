@@ -44,6 +44,7 @@ const paths = {
     'ftonend/**/*.sass'
   ],
   js: [
+    'node_modules/clipboard/dist/clipboard.js',
     'node_modules/jquery/dist/jquery.js',
     'frontend/script.js'
   ],

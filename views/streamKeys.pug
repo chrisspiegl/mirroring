@@ -19,12 +19,18 @@ block content
             li idStreamKey:
               = ' '
               input(name='idStreamKey', placeholder='idStreamKey', required=true, value=streamKey.idStreamKey, disabled=true)
-            li Note:
+            li Stream Name:
               = ' '
               input(name='note', placeholder='note', required=true, value=streamKey.note)
-            li Key:
+            li Stream Key:
               = ' '
-              input(name='key', placeholder='key', required=true, value=streamKey.key, disabled=true)
+              div.flexContainer(style="justify-content: space-between;")
+                input.key(name='key', type='password', style="width: auto; flex-grow: 1", placeholder='key', required=true, value=streamKey.key, disabled=true)
+                button.button.buttonShowStreamKey(type='button', style="margin: 0; margin-left: .25rem;") Show
+                button.button.buttonClipboard(type='button', style="margin: 0; margin-left: .25rem;") Copy
+            li Stream URL:
+              = ' '
+              input(value=`rtmp://${config.server.hostname}${config.rtmpServer.rtmp.port === 1935 ? '' : ':' + config.rtmpServer.rtmp.port}/live/`, disabled=true)
             li
               ul.flexContainer(style="justify-content: space-between;")
                 li Status:
@@ -44,15 +50,6 @@ block content
                     | never
             li
               ul.flexContainer(style="justify-content: space-around;")
-                li
-                  button.button() Update
-                li
-                  a.button(href=`/streamkey/${streamKey.idStreamKey}/regenerate`) Regenerate
-                li
-                  if (streamKey.enabled)
-                    a.button(href=`/streamkey/${streamKey.idStreamKey}/disable`) Disable
-                  else
-                    a.button(href=`/streamkey/${streamKey.idStreamKey}/enable`) Enable
                 if (streamKey.deletedAt)
                   li
                     a.button(href=`/streamkey/${streamKey.idStreamKey}/delete?force=1`) Delete
@@ -60,12 +57,22 @@ block content
                     a.button(href=`/streamkey/${streamKey.idStreamKey}/restore`) Restore
                 else
                   li
+                    button.button() Update
+                  li
+                    a.button(href=`/streamkey/${streamKey.idStreamKey}/regenerate`) Regenerate
+                  li
+                    if (streamKey.enabled)
+                      a.button(href=`/streamkey/${streamKey.idStreamKey}/disable`) Disable
+                    else
+                      a.button(href=`/streamkey/${streamKey.idStreamKey}/enable`) Enable
+                  li
                     a.button(href=`/streamkey/${streamKey.idStreamKey}/delete`) Archive
+
 
     h2 Add new Stream Key
     form(method="POST", action=`/streamkey/create`)
       ul
-        li Note:
+        li Stream Name:
           input(name='note', placeholder='note', required=true)
         li Stream Key: will be generated upon creation.
       button.button() Create Stream Key
