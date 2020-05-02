@@ -43,7 +43,7 @@ module.exports = {
       repo: "git@github.com:chrisspiegl/mirroring.git",
       path: "/home/deploy/mirroring-production",
       "post-deploy": "npm run nsinstall && npm run nsupdate && NODE_ENV=production pm2 reload ecosystem.config.js --only mirroring-main --env production",
-      env: {},
+      // env: {},
     },
     // dev : {
     //   user: "node",
