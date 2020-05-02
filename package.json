@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Restart - PM2 RELOAD - production\" && NODE_ENV=production npx pm2 reload ecosystem.config.js --env production",
+    "start": "echo \"Restart - PM2 RELOAD - production\" && NODE_ENV=production npx pm2 reload ecosystem.config.js --only mirroring-main --env production",
     "stop": "npx pm2 stop ecosystem.config.js",
     "nsupdate": "echo \"Update - WITHOUT SAVING TO CONFIG FILES\" && npm update --no-save",
     "nsinstall": "echo \"Install - WITHOUT SAVING TO CONFIG FILES\" && npm install --no-save",

@@ -5,7 +5,7 @@ module.exports = {
    */
   apps : [
     {
-      name: "mirroring",
+      name: "mirroring-main",
       append_env_to_name: true,
       script: "./server/index.js",
       watch: false,
@@ -42,7 +42,7 @@ module.exports = {
       ref: "origin/master",
       repo: "git@github.com:chrisspiegl/mirroring.git",
       path: "/home/deploy/mirroring-production",
-      "post-deploy": "NODE_ENV=production pm2 reload ecosystem.config.js --only mirroring --env production",
+      "post-deploy": "NODE_ENV=production npm start",
       env: {},
     },
     // dev : {
