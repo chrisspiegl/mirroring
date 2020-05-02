@@ -1,6 +1,6 @@
 /*!
  * Magic Starts Here
- * https://NetworkPersonalConnections.ChrisSpiegl.com
+ * https://mirroring.ChrisSpiegl.com
  */
 
 $(() => {
