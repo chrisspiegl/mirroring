@@ -3,7 +3,7 @@ module.exports = {
    * Application configuration section
    * http://pm2.keymetrics.io/docs/usage/application-declaration/
    */
-  apps : [
+  apps: [
     {
       name: "mirroring-main",
       append_env_to_name: true,
@@ -18,7 +18,7 @@ module.exports = {
         NODE_ENV: "local",
         DEBUG: "sinpc:*",
       },
-      env_production : {
+      env_production: {
         NODE_PATH: ".",
         NODE_ENV: "production",
         DEBUG: "sinpc:*",
@@ -35,14 +35,14 @@ module.exports = {
    * Deployment section
    * http://pm2.keymetrics.io/docs/usage/deployment/
    */
-  deploy : {
-    production : {
+  deploy: {
+    production: {
       user: "deploy",
       host: "swStream5",
       ref: "origin/master",
       repo: "git@github.com:chrisspiegl/mirroring.git",
       path: "/home/deploy/mirroring-production",
-      "post-deploy": "NODE_ENV=production npm start",
+      "post-deploy": "npm run nsinstall && npm run nsupdate && NODE_ENV=production pm2 reload ecosystem.config.js --only mirroring-main --env production",
       env: {},
     },
     // dev : {
@@ -55,5 +55,5 @@ module.exports = {
     //   "post-deploy": "npm run nsinstall && npm run nsupdate && NODE_ENV=development pm2 reload ecosystem.config.js --env development --source-map-support",
     //   env: {}
     // }
-  }
-}
+  },
+};
