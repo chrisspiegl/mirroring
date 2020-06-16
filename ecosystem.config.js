@@ -16,17 +16,17 @@ module.exports = {
       env: {
         NODE_PATH: ".",
         NODE_ENV: "local",
-        DEBUG: "sinpc:*",
+        DEBUG: "simir:*",
       },
       env_production: {
         NODE_PATH: ".",
         NODE_ENV: "production",
-        DEBUG: "sinpc:*",
+        DEBUG: "simir:*",
       },
       env_development: {
         NODE_PATH: ".",
         NODE_ENV: "development",
-        DEBUG: "sinpc:*",
+        DEBUG: "simir:*",
       },
     },
   ],
