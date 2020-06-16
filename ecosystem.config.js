@@ -5,7 +5,7 @@ module.exports = {
    */
   apps: [
     {
-      name: "mirroring-stream",
+      name: "mir-stream",
       append_env_to_name: true,
       script: "./server/index.js",
       watch: false,
